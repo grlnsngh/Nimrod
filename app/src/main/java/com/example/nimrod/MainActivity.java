@@ -8,6 +8,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -21,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
         try {
             this.getSupportActionBar().hide();
         } catch (NullPointerException e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
 
         setContentView(R.layout.login_screen);
@@ -29,7 +31,7 @@ public class MainActivity extends AppCompatActivity {
         EditText password = findViewById(R.id.password);
         final Button btn = findViewById(R.id.btnSignIn);
 
-        btn.setText("Sign Up");
+        btn.setText(R.string.signup);
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -38,9 +40,9 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (username.getText().toString().equals("")) {
-                    btn.setText("Sign Up");
+                    btn.setText(R.string.signup);
                 } else {
-                    btn.setText("Sign In");
+                    btn.setText(R.string.signin);
                 }
             }
 
@@ -54,20 +56,21 @@ public class MainActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        buttonClicked(view);
+                        buttonClicked(btn.getText().toString());
                     }
                 }
         );
 
     }
 
-    private void buttonClicked(View view) {
-        Button btn = findViewById(R.id.btnSignIn);
-        if (btn.getText().toString().equals("Sign Up")) {
+    private void buttonClicked(String str) {
 
+        if (str.equals("Sign Up")) {
+            Intent i = new Intent(this, SignupActivity.class);
+            startActivity(i);
         } else {
             // Sign In
-
+            Toast.makeText(this, "Sign In", Toast.LENGTH_SHORT).show();
         }
     }
 
