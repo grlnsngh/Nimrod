@@ -29,10 +29,11 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.login_screen);
 
         final EditText username = findViewById(R.id.email);
-        EditText password = findViewById(R.id.password);
+        final EditText password = findViewById(R.id.password);
         final Button btn = findViewById(R.id.btnSignIn);
 
         btn.setText(R.string.signup);
+
         username.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -41,6 +42,25 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
                 if (username.getText().toString().equals("")) {
+                    btn.setText(R.string.signup);
+                } else {
+                    btn.setText(R.string.signin);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+            }
+        });
+
+        password.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                if (password.getText().toString().equals("")) {
                     btn.setText(R.string.signup);
                 } else {
                     btn.setText(R.string.signin);
@@ -71,8 +91,12 @@ public class MainActivity extends AppCompatActivity {
             startActivity(i);
         } else {
             // Sign In
-            Toast.makeText(this, "Sign In", Toast.LENGTH_SHORT).show();
+//            Toast.makeText(this, "Sign In", Toast.LENGTH_SHORT).show();
+
+            Intent i = new Intent(this, ErrorActivity.class);
+            startActivity(i);
         }
+
     }
 
 }
